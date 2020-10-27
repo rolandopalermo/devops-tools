@@ -85,7 +85,69 @@ nano /etc/postgresql/10/main/postgresql.conf
 sudo service postgresql restart
 ```
 
+### Backuping and restoring
+- Backuping`
+```bash
+sudo -i -u postgres
+pg_dump --format=c dbname > /tmp/dbname-`date +%Y-%m-%d-%H%M%S`
+```
+
+- Restoring
+```bash
+sudo -i -u postgres
+dropdb dbname
+createdb dbname
+pg_restore -O -x -d dbname < backup-file
+```
+
 ## Environment variables
 ```bash
 sudo nano /etc/environment
+```
+
+## Nginx, Lets Encrypt and Certbot
+
+### Ubuntu 18.x
+- Nginx
+```bash
+sudo apt-get update && sudo apt-get install nginx
+sudo ufw app list
+sudo ufw allow 'Nginx HTTP'
+sudo ufw status
+systemctl status nginx
+```
+
+- Certbot
+```bash
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt install python-certbot-nginx
+```
+
+### Ubuntu 20.x
+- Nginx and Certbot
+```bash
+sudo apt install certbot python3-certbot-nginx
+```
+
+### Lets Encrypt
+```bash
+sudo nano /etc/nginx/sites-available/default
+```
+
+Find the existing server_name line and replace the underscore with your domain name:
+```diff
++ server_name example.com www.example.com;
+```
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+sudo ufw allow 'Nginx Full' && sudo ufw delete allow 'Nginx HTTP'
+sudo certbot --nginx -d example.com
+```
+
+To renew an existing certificate, run:
+```bash
+sudo certbot renew --dry-run
 ```
