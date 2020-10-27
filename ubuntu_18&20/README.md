@@ -4,6 +4,7 @@
 - [OpenJDK-8](#openjdk-8)
 - [Maven](#maven)
 - [Docker](#docker)
+- [Docker-compose](#docker-compose)
 - [PostgreSQL](#postgresql)
   * [Backuping and restoring](#backuping-and-restoring)
 - [Environment variables](#environment-variables)
@@ -66,6 +67,13 @@ sudo systemctl status docker
 sudo usermod -aG docker ${USER}
 su - ${USER}
 id -nG
+```
+
+## Docker-compose
+```bash
+sudo curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
 ```
 
 ## PostgreSQL
