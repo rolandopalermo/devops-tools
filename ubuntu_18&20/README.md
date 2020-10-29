@@ -106,7 +106,7 @@ sudo service postgresql restart
 ```
 
 ### Backuping and restoring
-- Backuping`
+- Backuping
 ```bash
 sudo -i -u postgres
 pg_dump --format=c dbname > /tmp/dbname-`date +%Y-%m-%d-%H%M%S`
